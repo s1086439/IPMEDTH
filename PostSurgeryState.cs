@@ -5,7 +5,7 @@
 */
 public class PostSurgeryState : HololensState
 {
-	public PostSurgeryState(AppManager s, Hololens h)
+	public PostSurgeryState(SceneManager s, Hololens h)
 	{
 		base.sceneController = s;
 		base.hololens = h;
@@ -24,7 +24,7 @@ public class PostSurgeryState : HololensState
 
 	public override void Init()
 	{
-		base.sceneController.GetLeg().HighLightLegPart(new string[] { "Tibial Nerve", "Tibialis Anterior", "Tibialis Posterior" });
+		base.sceneController.GetLeg().HighlightLegPart(new string[] { "Tibial Nerve", "Tibialis Anterior", "Tibialis Posterior" });
 		base.sceneController.GetStateText().text = "Post surgery";
 	}
 

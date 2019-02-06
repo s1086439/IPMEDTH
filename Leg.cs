@@ -35,7 +35,7 @@ public class Leg : MonoBehaviour {
 	}
 
 	// Laten 'oplichten' de meegekregen spieren.
-	public void HighLightLegPart(string[] toHighlight)
+	public void HighlightLegPart(string[] toHighlight)
 	{
 		// Loop door de onderdelen van het been.
 		for (int p = 0; p < partsCounter; p++)

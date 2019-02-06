@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 
-public class AppManager : MonoBehaviour
+public class SceneManager : MonoBehaviour
 {
 	/*	SerializeField om de variabelen private te houden voor andere klassen, 
 		maar wel toegankelijk te houden voor de editor.
@@ -16,7 +16,6 @@ public class AppManager : MonoBehaviour
 	*/
 	[SerializeField]
 	private Leg leg;
-	[SerializeField]
 	private ESP8266 esp8266;
 	[SerializeField]
 	private GameObject speaker, interactiveContainer;
@@ -24,6 +23,11 @@ public class AppManager : MonoBehaviour
 	private Text voiceCommandText, stateText;
 	[SerializeField]
 	private Hololens hololens;
+
+	private void Awake()
+	{
+		esp8266 = GetComponent<ESP8266>();
+	}
 
 	void Update()
 	{

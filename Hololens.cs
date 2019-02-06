@@ -6,7 +6,7 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 {
 	private HololensState currentState, standbyState, preSurgeryState, postSurgeryState;
 	[SerializeField]
-	private AppManager sceneController;
+	private SceneManager sceneController;
 
 	/*	Aanmaken en toewijzen states.
 		Het programma start in standbyState.
@@ -61,7 +61,7 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 				currentState.Init();
 				break;
 			default:
-				sceneController.GetLeg().HighLightLegPart(new string[] { recognizedText });
+				sceneController.GetLeg().HighlightLegPart(new string[] { recognizedText });
 				break;
 		}
 

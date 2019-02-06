@@ -3,7 +3,7 @@
 // State om het programma in rust te zetten.
 public class StandbyState : HololensState
 {
-	public StandbyState(AppManager s, Hololens h)
+	public StandbyState(SceneManager s, Hololens h)
 	{
 		base.sceneController = s;
 		base.hololens = h;

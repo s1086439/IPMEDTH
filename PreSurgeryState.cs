@@ -3,7 +3,7 @@
 // State voor het tonen van de spieren.
 public class PreSurgeryState : HololensState
 {
-	public PreSurgeryState(AppManager s, Hololens h)
+	public PreSurgeryState(SceneManager s, Hololens h)
 	{
 		base.sceneController = s;
 		base.hololens = h;

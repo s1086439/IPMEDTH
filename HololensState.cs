@@ -1,5 +1,5 @@
 ﻿public abstract class HololensState {
-	protected AppManager sceneController;
+	protected SceneManager sceneController;
 	protected Hololens hololens;
 
 	public abstract void Init();
