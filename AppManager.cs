@@ -17,12 +17,13 @@ public class AppManager : MonoBehaviour
 	[SerializeField]
 	private Leg leg;
 	[SerializeField]
+	private ESP8266 esp8266;
+	[SerializeField]
 	private GameObject speaker, interactiveContainer;
 	[SerializeField]
 	private Text voiceCommandText, stateText;
 	[SerializeField]
 	private Hololens hololens;
-	private float x, y, z;
 
 	void Update()
 	{
@@ -32,12 +33,12 @@ public class AppManager : MonoBehaviour
 			if (hololens.GetCurrentState() != hololens.GetPostSurgeryState())
 			{
 				// Rotatie zetten van de handle voor de voet.
-				leg.RotatePre(x, y, z);
+				leg.RotatePre(esp8266.GetX(), esp8266.GetY(), esp8266.GetZ());
 			}
 			else
 			{
 				// Rotatie zetten van de handle voor de voet 'na de ingreep'.
-				leg.RotatePost(x, y, z);
+				leg.RotatePost(esp8266.GetX(), esp8266.GetY(), esp8266.GetZ());
 			}
 		}
 	}

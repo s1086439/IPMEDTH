@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Hololens : MonoBehaviour, ISpeechHandler
 {
-	private HololensState currentState, standbyState, setupState, preSurgeryState, postSurgeryState, inversionState;
+	private HololensState currentState, standbyState, preSurgeryState, postSurgeryState;
 	[SerializeField]
 	private AppManager sceneController;
 
@@ -57,7 +57,7 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 				currentState.Init();
 				break;
 			case "post surgery":
-				currentState = inversionState;
+				currentState = postSurgeryState;
 				currentState.Init();
 				break;
 			default:
