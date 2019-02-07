@@ -3,19 +3,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ESP8266 : MonoBehaviour
+public class ESP8266 : MonoBehaviour, Arduino
 {
 	[SerializeField]
 	private String localIpESP; // IP-adres van de ESP8266
-	private float x, y, z;
+	[SerializeField]
 
-	private void Start()
-	{
-		StartCoroutine(GetESPValues());
+	public String LocalIpESP {
+		get { return localIpESP; }
+		set { localIpESP = value; }
 	}
 
-	// GET requests naar de ESP8266.
-	IEnumerator GetESPValues()
+	public IEnumerator GetValues(Sensor sensor)
 	{
 		while (true)
 		{
@@ -28,29 +27,17 @@ public class ESP8266 : MonoBehaviour
 			}
 			else
 			{
-				ConvertESPValues(www.downloadHandler.text);
+				ConvertValues(www.downloadHandler.text, sensor);
 			}
 		}
 	}
 
-	private void ConvertESPValues(String s)
+	private void ConvertValues(String text, Sensor sensor)
 	{
-		string[] data = s.Split(',');
-		String w1 = data[0], w2 = data[1], w3 = data[2];
-		x = float.Parse(w1, System.Globalization.CultureInfo.InvariantCulture);
-		y = float.Parse(w2, System.Globalization.CultureInfo.InvariantCulture);
-		z = float.Parse(w3, System.Globalization.CultureInfo.InvariantCulture);
-	}
-	
-	public float GetX(){
-		return x;
-	}
-	
-	public float GetY(){
-		return y;
-	}
-	
-	public float GetZ(){
-		return z;
+		string[] data = text.Split(',');
+		String v1 = data[0], v2 = data[1], v3 = data[2];
+		sensor.X = float.Parse(v1, System.Globalization.CultureInfo.InvariantCulture);
+		sensor.Y = float.Parse(v2, System.Globalization.CultureInfo.InvariantCulture);
+		sensor.Z = float.Parse(v3, System.Globalization.CultureInfo.InvariantCulture);
 	}
 }

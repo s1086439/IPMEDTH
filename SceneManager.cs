@@ -17,6 +17,7 @@ public class SceneManager : MonoBehaviour
 	[SerializeField]
 	private Leg leg;
 	private ESP8266 esp8266;
+	private MPU6050 mpu6050;
 	[SerializeField]
 	private GameObject speaker, interactiveContainer;
 	[SerializeField]
@@ -27,6 +28,12 @@ public class SceneManager : MonoBehaviour
 	private void Awake()
 	{
 		esp8266 = GetComponent<ESP8266>();
+		mpu6050 = GetComponent<MPU6050>();
+	}
+
+	private void Start()
+	{
+		StartCoroutine(esp8266.GetValues(mpu6050));
 	}
 
 	void Update()
@@ -37,12 +44,12 @@ public class SceneManager : MonoBehaviour
 			if (hololens.GetCurrentState() != hololens.GetPostSurgeryState())
 			{
 				// Rotatie zetten van de handle voor de voet.
-				leg.RotatePre(esp8266.GetX(), esp8266.GetY(), esp8266.GetZ());
+				leg.RotatePre(mpu6050.X, mpu6050.Y, mpu6050.Z);
 			}
 			else
 			{
 				// Rotatie zetten van de handle voor de voet 'na de ingreep'.
-				leg.RotatePost(esp8266.GetX(), esp8266.GetY(), esp8266.GetZ());
+				leg.RotatePost(mpu6050.X, mpu6050.Y, mpu6050.Z);
 			}
 		}
 	}
