@@ -18,7 +18,7 @@ public class ESP8266 : MonoBehaviour, Arduino
 	{
 		while (true)
 		{
-			UnityWebRequest www = UnityWebRequest.Get(localIpESP);
+			UnityWebRequest www = UnityWebRequest.Get("http://"+localIpESP);
 			yield return www.SendWebRequest();
 
 			if (www.isNetworkError || www.isHttpError)
@@ -27,6 +27,7 @@ public class ESP8266 : MonoBehaviour, Arduino
 			}
 			else
 			{
+				Debug.Log(www.downloadHandler.text);
 				ConvertValues(www.downloadHandler.text, sensor);
 			}
 		}

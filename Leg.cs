@@ -5,12 +5,12 @@ using UnityEngine;
 public class Leg : MonoBehaviour {
 
 	[SerializeField]
-	private GameObject handle;
-	private List<Transform> legParts;
-	private List<Material> legPartsDefaultMaterials;
+	private GameObject handle; // Handle voor het roteren van de voet middel.
+	private List<Transform> legParts; // Opslag voor de onderdelen van het been.
+	private List<Material> legPartsDefaultMaterials; // Opslag voor de standaard materialen van de onderdelen van het been.
 	[SerializeField]
-	private Material inactiveObjectMaterial;
-	private int partsCounter;
+	private Material inactiveObjectMaterial; // Inactieve materiaal voor een onderdeel van het been.
+	private int partsCounter; // Teller voor het bijhouden van het aantal onderdelen van het been.
 
 	private void Awake()
 	{
@@ -20,29 +20,26 @@ public class Leg : MonoBehaviour {
 
 	private void Start()
 	{
-		foreach (Transform child in this.transform) { legParts.Add(child); partsCounter++; };
+		foreach (Transform child in this.transform) { child.name = child.name.ToLower();  legParts.Add(child); partsCounter++; };
 		StoreDefaultMaterials();
 	}
 
 	public void RotatePre(float x, float y, float z)
 	{
-		handle.transform.rotation = Quaternion.Lerp(handle.transform.rotation, Quaternion.Euler((-(x) / 2) - 35, -(y) / 2, (z / 2)), 0.1f);
+		handle.transform.rotation = Quaternion.Lerp(handle.transform.rotation, Quaternion.Euler((x / 2) - 35, -(y) / 2, -(z / 2)), 0.1f);
 	}
 
 	public void RotatePost(float x, float y, float z)
 	{
-		handle.transform.rotation = Quaternion.Lerp(handle.transform.rotation, Quaternion.Euler((x / 2) - 35, -(y) / 2, -(z / 2)), 0.1f);
+		handle.transform.rotation = Quaternion.Lerp(handle.transform.rotation, Quaternion.Euler((-(x) / 2) - 35, -(y) / 2, (z / 2)), 0.1f);
 	}
 
-	// Laten 'oplichten' de meegekregen spieren.
 	public void HighlightLegPart(string[] toHighlight)
 	{
-		// Loop door de onderdelen van het been.
 		for (int p = 0; p < partsCounter; p++)
 		{
 			legParts[p].gameObject.GetComponent<Renderer>().material = legPartsDefaultMaterials[p];
 			bool found = false;
-			// Controleren op overeenkomstige namen toHighlight h en onderdeel p.
 			for (int h = 0; h < toHighlight.Length; h++)
 			{
 				if (toHighlight[h] == legParts[p].name)
@@ -52,7 +49,6 @@ public class Leg : MonoBehaviour {
 			}
 			if (!found)
 			{
-				// Onderdelen die niet overeenkomen met h een nieuwe material geven.
 				legParts[p].gameObject.GetComponent<Renderer>().material = inactiveObjectMaterial;
 			}
 		}
@@ -66,7 +62,6 @@ public class Leg : MonoBehaviour {
 		}
 	}
 
-	// Alle onderdelen van het been hun oorspronkelijke material geven.
 	public void DisableHighlightLegParts()
 	{
 		for (int p = 0; p < partsCounter; p++)

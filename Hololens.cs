@@ -2,26 +2,29 @@ using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
 
+//	De context voor het state pattern binnen het programma.
+
 public class Hololens : MonoBehaviour, ISpeechHandler
 {
-	private HololensState currentState, standbyState, preSurgeryState, postSurgeryState;
+	private HololensState currentState, standbyState, preSurgeryState, postSurgeryState; // De states binnen het programma.
 	[SerializeField]
-	private SceneManager sceneController;
+	private SceneManager sceneController; // Dependency om vanuit een state objecten te bereiken.
 
-	/*	Aanmaken en toewijzen states.
-		Het programma start in standbyState.
-	*/
+	//	Aanmaken en toewijzen states.
 	void Start()
 	{
 		standbyState = new StandbyState(sceneController, this);
 		preSurgeryState = new PreSurgeryState(sceneController, this);
 		postSurgeryState = new PostSurgeryState(sceneController, this);
-		currentState = standbyState;
-		currentState.Init();
+		currentState = standbyState; // Starten in de standby-fase.
+		currentState.Init(); // Aanroepen initialisatie van de huidige fase.
 	}
 
-	// Afhandelen stemcommando's voor huidige state.
-	// Naast de aangeven voiceommands wordt er ook gereageerd op de namen van onderdelen van het been.
+	/*	Afhandelen stemcommando's voor de huidige state.
+		Naast de aangeven voiceommands wordt er ook gereageerd op de namen van onderdelen van het been.
+		Het resultaat eventData komt voort uit de herkende worden, gebaseerd op de aangegeven woorden in de editor,
+		én de namen van de onderdelen van het been.
+	*/
 	public void OnSpeechKeywordRecognized(SpeechEventData eventData)
 	{
 		string recognizedText = eventData.RecognizedText.ToLower();
@@ -61,6 +64,7 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 				currentState.Init();
 				break;
 			default:
+				sceneController.GetStateText().text = recognizedText;
 				sceneController.GetLeg().HighlightLegPart(new string[] { recognizedText });
 				break;
 		}

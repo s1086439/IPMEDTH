@@ -10,8 +10,8 @@ using UnityEngine;
 using UnityEngine.Windows.Speech;
 #endif
 
-/*	Aangepaste versie van de klasse SpeechInputSource.
-	Werkt nu met lists i.p.v. arrrays.
+/*	De klasse SpeechInputSource aangepast.
+	Deze werkt nu met lists i.p.v. arrrays om de te herkennen woorden dynamisch te kunnen uitbreiden.
 */
 
 namespace HoloToolkit.Unity.InputModule
@@ -54,27 +54,46 @@ namespace HoloToolkit.Unity.InputModule
 
         private KeywordRecognizer keywordRecognizer;
 
-        #region Unity Methods
+		[Tooltip("A list for GameObject types with one or more childs. The child names could then be used for speech recognition.")]
+		[SerializeField]
+		private List<GameObject> additionalWordsWrapper;
 
-        protected virtual void Start()
+		#region Unity Methods
+
+		protected virtual void Start()
         {
             if (PersistentKeywords)
             {
                 gameObject.DontDestroyOnLoad();
             }
 
-            int keywordCount = Keywords.Count;
+			if (additionalWordsWrapper != null)
+			{
+				foreach (GameObject g in additionalWordsWrapper)
+				{
+					foreach (Transform child in g.transform)
+					{
+						KeywordAndKeyCode k;
+						k.Keyword = child.name;
+						k.KeyCode = KeyCode.None;
+						Keywords.Add(k);
+					}
+				}
+			}
 
-			if (keywordCount > 0)
+			int keywordCount = Keywords.Count;
+
+			if (keywordCount > 0 || additionalWordsWrapper != null)
             {
                 var keywords = new string[keywordCount];
 
                 for (int index = 0; index < keywordCount; index++)
                 {
                     keywords[index] = Keywords[index].Keyword;
-                }
+					Debug.Log(keywords[index]);
+				}
 
-                keywordRecognizer = new KeywordRecognizer(keywords, recognitionConfidenceLevel);
+				keywordRecognizer = new KeywordRecognizer(keywords, recognitionConfidenceLevel);
                 keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
 
                 if (RecognizerStart == RecognizerStartBehavior.AutoStart)
@@ -82,6 +101,7 @@ namespace HoloToolkit.Unity.InputModule
                     keywordRecognizer.Start();
                 }
             }
+
             else
             {
                 Debug.LogError("Must have at least one keyword specified in the Inspector on " + gameObject.name + ".");

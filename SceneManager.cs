@@ -40,15 +40,12 @@ public class SceneManager : MonoBehaviour
 	{
 		if (hololens.GetCurrentState() != hololens.GetStandbyState())
 		{
-			// ConvertESPValues() na het binnenkrijgen van "sensordata" van de socket.
 			if (hololens.GetCurrentState() != hololens.GetPostSurgeryState())
 			{
-				// Rotatie zetten van de handle voor de voet.
 				leg.RotatePre(mpu6050.X, mpu6050.Y, mpu6050.Z);
 			}
 			else
 			{
-				// Rotatie zetten van de handle voor de voet 'na de ingreep'.
 				leg.RotatePost(mpu6050.X, mpu6050.Y, mpu6050.Z);
 			}
 		}
