@@ -8,14 +8,16 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 {
 	private HololensState currentState, standbyState, preSurgeryState, postSurgeryState; // De states binnen het programma.
 	[SerializeField]
-	private SceneManager sceneController; // Dependency om vanuit een state objecten te bereiken.
+	private SceneManager sceneManager;
+
+	public SceneManager SceneManager { get { return sceneManager; } }
 
 	//	Aanmaken en toewijzen states.
 	void Start()
 	{
-		standbyState = new StandbyState(sceneController, this);
-		preSurgeryState = new PreSurgeryState(sceneController, this);
-		postSurgeryState = new PostSurgeryState(sceneController, this);
+		standbyState = new StandbyState(this);
+		preSurgeryState = new PreSurgeryState(this);
+		postSurgeryState = new PostSurgeryState(this);
 		currentState = standbyState; // Starten in de standby-fase.
 		currentState.Init(); // Aanroepen initialisatie van de huidige fase.
 	}
@@ -64,14 +66,14 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 				currentState.Init();
 				break;
 			default:
-				sceneController.GetStateText().text = recognizedText;
-				sceneController.GetLeg().HighlightLegPart(new string[] { recognizedText });
+				sceneManager.VoiceCommandText.text = recognizedText;
+				sceneManager.Leg.HighlightLegPart(new string[] { recognizedText });
 				break;
 		}
 
 		// Aanpassen interface-tekst voor de gebruiker.
-		sceneController.GetVoiceCommandsText().text = eventData.RecognizedText;
-		StartCoroutine(sceneController.GetCustomText().Fade(sceneController.GetVoiceCommandsText()));
+		sceneManager.VoiceCommandText.text = eventData.RecognizedText;
+		StartCoroutine(sceneManager.CustomText.Fade(sceneManager.VoiceCommandText));
 	}
 
 	public HololensState GetCurrentState()

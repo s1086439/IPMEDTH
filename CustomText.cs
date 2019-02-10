@@ -15,7 +15,7 @@ public class CustomText : MonoBehaviour {
 		text.color = new Color(0, 1, 0, 1); // r, g, b, a
 		for (float i = 1; i >= 0; i -= Time.deltaTime)
 		{
-			// Alpha veranderen met i (1-0)
+			// Alpha veranderen met i (0-1)
 			text.color = new Color(0, 1, 0, i);
 			yield return null;
 		}

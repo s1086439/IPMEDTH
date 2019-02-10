@@ -3,9 +3,8 @@
 // State om het programma in rust te zetten.
 public class StandbyState : HololensState
 {
-	public StandbyState(SceneManager s, Hololens h)
+	public StandbyState(Hololens h)
 	{
-		base.sceneController = s;
 		base.hololens = h;
 	}
 
@@ -21,7 +20,7 @@ public class StandbyState : HololensState
 
 	public override void Init()
 	{
-		base.sceneController.GetInteractiveContainer().SetActive(false);
+		base.hololens.SceneManager.InteractiveContainer.SetActive(false);
 	}
 
 	public override void Next()

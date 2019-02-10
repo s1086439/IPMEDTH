@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class MPU6050: MonoBehaviour, Sensor
+public class MPU6050: MonoBehaviour, GyroAccSensor
 {
 	private float x, y, z;
 

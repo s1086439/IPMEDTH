@@ -22,13 +22,24 @@ public class SceneManager : MonoBehaviour
 	private GameObject speaker, interactiveContainer;
 	[SerializeField]
 	private Text voiceCommandText, stateText;
+	private CustomText customText;
 	[SerializeField]
 	private Hololens hololens;
 
+	public Text VoiceCommandText { get { return voiceCommandText; } set { voiceCommandText = value; } }
+	public Text StateText { get { return stateText; } set { stateText = value; } }
+	public CustomText CustomText { get { return customText; } set { customText = value; } }
+	public Leg Leg { get { return leg; } }
+	public ESP8266 Esp8266 { get { return esp8266; } }
+	public MPU6050 Mpu6050 { get { return mpu6050; } }
+	public GameObject Speaker { get { return speaker; } }
+	public GameObject InteractiveContainer { get { return interactiveContainer; } }
+
 	private void Awake()
 	{
-		esp8266 = GetComponent<ESP8266>();
-		mpu6050 = GetComponent<MPU6050>();
+		customText = this.GetComponent<CustomText>();
+		esp8266 = this.GetComponent<ESP8266>();
+		mpu6050 = this.GetComponent<MPU6050>();
 	}
 
 	private void Start()
@@ -49,35 +60,5 @@ public class SceneManager : MonoBehaviour
 				leg.RotatePost(mpu6050.X, mpu6050.Y, mpu6050.Z);
 			}
 		}
-	}
-
-	public GameObject GetInteractiveContainer()
-	{
-		return interactiveContainer;
-	}
-
-	public GameObject GetSpeaker()
-	{
-		return speaker;
-	}
-
-	public Text GetVoiceCommandsText()
-	{
-		return voiceCommandText;
-	}
-
-	public Text GetStateText()
-	{
-		return stateText;
-	}
-
-	public Leg GetLeg()
-	{
-		return leg;
-	}
-
-	public CustomText GetCustomText()
-	{
-		return GetComponent<CustomText>();
 	}
 }

@@ -14,7 +14,7 @@ public class ESP8266 : MonoBehaviour, Arduino
 		set { localIpESP = value; }
 	}
 
-	public IEnumerator GetValues(Sensor sensor)
+	public IEnumerator GetValues(GyroAccSensor sensor)
 	{
 		while (true)
 		{
@@ -33,7 +33,7 @@ public class ESP8266 : MonoBehaviour, Arduino
 		}
 	}
 
-	private void ConvertValues(String text, Sensor sensor)
+	private void ConvertValues(String text, GyroAccSensor sensor)
 	{
 		string[] data = text.Split(',');
 		String v1 = data[0], v2 = data[1], v3 = data[2];
