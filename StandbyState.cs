@@ -20,7 +20,7 @@ public class StandbyState : HololensState
 
 	public override void Init()
 	{
-		base.hololens.SceneManager.InteractiveContainer.SetActive(false);
+		base.hololens.Appmanager.InteractiveContainer.SetActive(false);
 	}
 
 	public override void Next()

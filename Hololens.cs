@@ -8,9 +8,9 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 {
 	private HololensState currentState, standbyState, preSurgeryState, postSurgeryState; // De states binnen het programma.
 	[SerializeField]
-	private SceneManager sceneManager;
+	private AppManager appManager;
 
-	public SceneManager SceneManager { get { return sceneManager; } }
+	public AppManager Appmanager { get { return appManager; } }
 
 	//	Aanmaken en toewijzen states.
 	void Start()
@@ -30,7 +30,6 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 	public void OnSpeechKeywordRecognized(SpeechEventData eventData)
 	{
 		string recognizedText = eventData.RecognizedText.ToLower();
-
 		switch (recognizedText)
 		{
 			case "start":
@@ -66,14 +65,14 @@ public class Hololens : MonoBehaviour, ISpeechHandler
 				currentState.Init();
 				break;
 			default:
-				sceneManager.VoiceCommandText.text = recognizedText;
-				sceneManager.Leg.HighlightLegPart(new string[] { recognizedText });
+				appManager.VoiceCommandText.text = recognizedText;
+				appManager.Leg.HighlightLegPart(new string[] { recognizedText });
 				break;
 		}
 
 		// Aanpassen interface-tekst voor de gebruiker.
-		sceneManager.VoiceCommandText.text = eventData.RecognizedText;
-		StartCoroutine(sceneManager.CustomText.Fade(sceneManager.VoiceCommandText));
+		appManager.VoiceCommandText.text = eventData.RecognizedText;
+		StartCoroutine(appManager.CustomText.Fade(appManager.VoiceCommandText));
 	}
 
 	public HololensState GetCurrentState()

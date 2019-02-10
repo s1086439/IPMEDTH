@@ -6,7 +6,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 
-public class SceneManager : MonoBehaviour
+public class AppManager : MonoBehaviour
 {
 	/*	SerializeField om de variabelen private te houden voor andere klassen, 
 		maar wel toegankelijk te houden voor de editor.

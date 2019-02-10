@@ -22,9 +22,9 @@ public class PreSurgeryState : HololensState
 	public override void Init()
 	{
 		// Meegeven onderdelen om te laten 'oplichten'.
-		base.hololens.SceneManager.Leg.DisableHighlightLegParts();
-		base.hololens.SceneManager.InteractiveContainer.SetActive(true);
-		base.hololens.SceneManager.StateText.text = "Pre surgery";
+		base.hololens.Appmanager.Leg.DisableHighlightLegParts();
+		base.hololens.Appmanager.InteractiveContainer.SetActive(true);
+		base.hololens.Appmanager.StateText.text = "Pre surgery";
 	}
 
 	public override void Next()
@@ -35,12 +35,12 @@ public class PreSurgeryState : HololensState
 
 	public override void Restart()
 	{
-		base.hololens.SceneManager.Speaker.GetComponent<AudioSource>().Play();
+		base.hololens.Appmanager.Speaker.GetComponent<AudioSource>().Play();
 	}
 
 	public override void Stop()
 	{
-		base.hololens.SceneManager.Leg.DisableHighlightLegParts();
+		base.hololens.Appmanager.Leg.DisableHighlightLegParts();
 		base.hololens.SetCurrentState(base.hololens.GetStandbyState());
 		base.hololens.GetCurrentState().Init();
 	}

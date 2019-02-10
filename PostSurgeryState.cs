@@ -18,18 +18,18 @@ public class PostSurgeryState : HololensState
 
 	public override void Calibrate()
 	{
-		base.hololens.SceneManager.Speaker.GetComponent<AudioSource>().Play();
+		base.hololens.Appmanager.Speaker.GetComponent<AudioSource>().Play();
 	}
 
 	public override void Init()
 	{
-		base.hololens.SceneManager.Leg.HighlightLegPart(new string[] { "tibial nerve", "tibialis anterior", "tibialis posterior" });
-		base.hololens.SceneManager.StateText.text = "Post surgery";
+		base.hololens.Appmanager.Leg.HighlightLegPart(new string[] { "tibial nerve", "tibialis anterior", "tibialis posterior" });
+		base.hololens.Appmanager.StateText.text = "Post surgery";
 	}
 
 	public override void Next()
 	{
-		base.hololens.SceneManager.Speaker.GetComponent<AudioSource>().Play();
+		base.hololens.Appmanager.Speaker.GetComponent<AudioSource>().Play();
 	}
 
 	public override void Restart()
