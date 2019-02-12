@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-public interface Hardware
-{
-}
+/*	Een hardware interface voor mogelijke uitbreidingen van het programma. Indien gewenst aanvullen. 
+	Extra hardwarecomponenten kunnen van deze klasse implementeren. */
+
+public interface Hardware {}

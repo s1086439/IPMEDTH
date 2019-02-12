@@ -10,8 +10,8 @@ public class PreSurgeryState : HololensState
 
 	public override void Back()
 	{
-		base.hololens.SetCurrentState(base.hololens.GetPreSurgeryState());
-		base.hololens.GetCurrentState().Init();
+		base.hololens.CurrentState = base.hololens.PreSurgeryState;
+		base.hololens.CurrentState.Init();
 	}
 
 	public override void Calibrate()
@@ -29,8 +29,8 @@ public class PreSurgeryState : HololensState
 
 	public override void Next()
 	{
-		base.hololens.SetCurrentState(base.hololens.GetPostSurgeryState());
-		base.hololens.GetCurrentState().Init();
+		base.hololens.CurrentState = base.hololens.PostSurgeryState;
+		base.hololens.CurrentState.Init();
 	}
 
 	public override void Restart()
@@ -41,7 +41,7 @@ public class PreSurgeryState : HololensState
 	public override void Stop()
 	{
 		base.hololens.Appmanager.Leg.DisableHighlightLegParts();
-		base.hololens.SetCurrentState(base.hololens.GetStandbyState());
-		base.hololens.GetCurrentState().Init();
+		base.hololens.CurrentState = base.hololens.StandbyState;
+		base.hololens.CurrentState.Init();
 	}
 }

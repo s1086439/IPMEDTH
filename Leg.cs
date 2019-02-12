@@ -18,22 +18,33 @@ public class Leg : MonoBehaviour {
 		legPartsDefaultMaterials = new List<Material>();
 	}
 
+	/*	Namen childs van Leg omzetten naar kleine letters. 
+		Plaatsen childs van Leg in legParts. 
+		partsCounter verhogen */
 	private void Start()
 	{
-		foreach (Transform child in this.transform) { child.name = child.name.ToLower();  legParts.Add(child); partsCounter++; };
+		foreach (Transform child in this.transform) { child.name = child.name.ToLower(); legParts.Add(child); partsCounter++; };
 		StoreDefaultMaterials();
 	}
 
+	/*	Roteren been middels de verkregen x, y en z waarden, voor de pre surgery fase. 
+		Hier wordt het object 'handle' gedraaid. */
 	public void RotatePre(float x, float y, float z)
 	{
 		handle.transform.rotation = Quaternion.Lerp(handle.transform.rotation, Quaternion.Euler((x / 2) - 35, -(y) / 2, -(z / 2)), 0.1f);
 	}
 
+	/*	Roteren been middels de verkregen x, y en z waarden, voor de post surgery fase.  
+		Hier wordt het object 'handle' gedraaid. */
 	public void RotatePost(float x, float y, float z)
 	{
 		handle.transform.rotation = Quaternion.Lerp(handle.transform.rotation, Quaternion.Euler((-(x) / 2) - 35, -(y) / 2, (z / 2)), 0.1f);
 	}
 
+	/*	Oplichten onderdeel been middels verkregen array toHighlight.
+		Itereren over legParts middels p.
+		Itereren over array toHighlight, en vergelijken object van legParts. 
+		Zet de material van een niet gevonden onderdeel van het been op een speciale material genaamd inactiveObjectMaterial */
 	public void HighlightLegPart(string[] toHighlight)
 	{
 		for (int p = 0; p < partsCounter; p++)
@@ -53,7 +64,8 @@ public class Leg : MonoBehaviour {
 			}
 		}
 	}
-
+	
+	//	Opslaan van de standaard materials van de onderdelen van het been.
 	private void StoreDefaultMaterials()
 	{
 		for (int p = 0; p < partsCounter; p++)
@@ -62,6 +74,7 @@ public class Leg : MonoBehaviour {
 		}
 	}
 
+	// Highlights uitzetten op alle onderdelen van het been middels het verkrijgen van de opgeslagen standaard materials in legPartsDefaultMaterials.
 	public void DisableHighlightLegParts()
 	{
 		for (int p = 0; p < partsCounter; p++)
