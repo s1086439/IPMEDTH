@@ -25,7 +25,7 @@ public class StandbyState : HololensState
 
 	public override void Next()
 	{
-		base.hololens.CurrentState = base.hololens.GetPreSurgeryState;
+		base.hololens.CurrentState = base.hololens.PreSurgeryState;
 		base.hololens.CurrentState.Init();
 	}
 

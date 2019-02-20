@@ -3,9 +3,9 @@
 [RequireComponent(typeof(Animator))]
 
 /*	Klasse voor inverse kinematics.
-	De voet kan hierdoor bewegen door 'handle' te positioneren.
-	De positionering van handle wordt in AppManager gedaan.
-	Wanneer handle beweegt, wordt de rechtervoet met OnAnimatorIK() gepositioneerd.
+	De voet kan hierdoor bewegen door 'handle' te positioneren en roteren.
+	De positionering en rotering wordt in Leg afgehandeld.
+	Wanneer handle beweegt, wordt de rechtervoet met OnAnimatorIK() gepositioneerd en geroteerd.
 */
 public class IKController : MonoBehaviour
 {

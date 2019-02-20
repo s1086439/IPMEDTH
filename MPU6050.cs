@@ -6,12 +6,12 @@ using UnityEngine;
 	Deze wordt gebruikt om zijn waarden op te slaan.
 */
 	
-public class MPU6050: MonoBehaviour, GyroAccSensor
+public class MPU6050: GyroAccSensor
 {
 	private float x, y, z; // De x, y en z waarden van de mpu6050.
 
 	// Getters en setters voor de deze klasse.
-	public float X { get { return x; } set{ x = value; } }
-	public float Y { get { return y; } set { y = value; } }
-	public float Z { get { return z; } set { z = value; }}
+	public override float X { get { return x; } set{ x = value; } }
+	public override float Y { get { return y; } set { y = value; } }
+	public override float Z { get { return z; } set { z = value; } }
 }

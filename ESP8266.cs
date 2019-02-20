@@ -14,13 +14,18 @@ public class ESP8266 : MonoBehaviour, Arduino
 	private GyroAccSensor gyroAccSensor;
 
 	public String LocalIpESP { get { return localIpESP; } } // Get voor het ip-adres
-	public GyroAccSensor GyroAccSensor { get { return gyroAccSensor; } } Get voor een gyroAccSensor
+	public GyroAccSensor GyroAccSensor { get { return gyroAccSensor; } } // Get voor een gyroAccSensor
+
+	void Awake()
+	{
+		gyroAccSensor = GetComponent<MPU6050>();
+	}
 
 	/*	Voer een IEnumerator uit zolang het programma draait.
 		Doet dit middels GET-requests en het ip-adres.
 		Wanneer er geen netwerkfout optreedt, roep dan de methode ConvertValues aan en geef hierbij
 		de verkregen sensordata en sensortype mee. */
-	public IEnumerator GetValues()
+	public IEnumerator RequestValues()
 	{
 		while (true)
 		{
@@ -33,7 +38,7 @@ public class ESP8266 : MonoBehaviour, Arduino
 			}
 			else
 			{
-				ConvertValues(www.downloadHandler.text, gyroAccSensor);
+				ConvertValues(www.downloadHandler.text);
 			}
 		}
 	}

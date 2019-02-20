@@ -44,7 +44,7 @@ public class AppManager : MonoBehaviour
 	{
 		/*	Starten coroutine om de waarden van de mpu6050 te verkijgen 
 			gedurende het 'draaien' van het programma. */
-		StartCoroutine(esp8266.GetValues());
+		StartCoroutine(esp8266.RequestValues());
 	}
 
 	/*	Methode die gedurende het programma draait en controleert in welke state het programma zich bevindt.
@@ -52,15 +52,15 @@ public class AppManager : MonoBehaviour
 		Zo niet, voer de methode RotatePre aan in Leg. Voer anders RotatePost uit. */
 	void Update()
 	{
-		if (hololens.GetCurrentState() != hololens.GetStandbyState())
+		if (hololens.CurrentState != hololens.StandbyState)
 		{
-			if (hololens.GetCurrentState() != hololens.GetPostSurgeryState())
+			if (hololens.CurrentState != hololens.PostSurgeryState)
 			{
-				leg.RotatePre(ESP8266.GyroAccSensor.x, ESP8266.GyroAccSensor.y, ESP8266.GyroAccSensor.z); // Haal de waardes op uit mpu6050.
+				leg.RotatePre(esp8266.GyroAccSensor.X, esp8266.GyroAccSensor.Y, esp8266.GyroAccSensor.Z); // Haal de waardes op uit mpu6050.
 			}
 			else
 			{
-				leg.RotatePost(ESP8266.GyroAccSensor.x, ESP8266.GyroAccSensor.y, ESP8266.GyroAccSensor.z); // Haal de waardes op uit mpu6050.
+				leg.RotatePost(esp8266.GyroAccSensor.X, esp8266.GyroAccSensor.Y, esp8266.GyroAccSensor.Z); // Haal de waardes op uit mpu6050.
 			}
 		}
 	}

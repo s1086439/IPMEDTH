@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
-public interface GyroAccSensor: Hardware
+public abstract class GyroAccSensor: MonoBehaviour, Hardware
 {
-	float X { get; set; }
-	float Y { get; set; }
-	float Z { get; set; }
+	public abstract float X { get; set; }
+	public abstract float Y { get; set; }
+	public abstract float Z { get; set; }
 }
